@@ -1,7 +1,8 @@
 import streamlit as st
 import pdfplumber
-import docx
-import pyttsx3
+from docx import Document
+#import pyttsx3
+from gtts import gTTS
 import os
 
 st.set_page_config(
@@ -18,17 +19,22 @@ def convert_pdf_to_audio(pdf_file):
 
 # Function to convert DOCX file to text
 def convert_docx_to_audio(docx_file):
-    doc = docx.Document(docx_file)
+    doc = Document(docx_file)
     text = ""
     for paragraph in doc.paragraphs:
         text += paragraph.text + "\n"
     return text
 
-# Function to convert text to audio
+# # Function to convert text to audio
+# def text_to_audio(text, output_file):
+#     engine = pyttsx3.init()
+#     engine.save_to_file(text, output_file)
+#     engine.runAndWait()
+
+# Function to convert text to audio using gTTS
 def text_to_audio(text, output_file):
-    engine = pyttsx3.init()
-    engine.save_to_file(text, output_file)
-    engine.runAndWait()
+    tts = gTTS(text)
+    tts.save(output_file)
 
 # Streamlit app title and file uploader
 st.title('File To Audio Converter')
