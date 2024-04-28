@@ -1,6 +1,6 @@
 import streamlit as st
 import pdfplumber
-import docx
+from docx import Document
 import pyttsx3
 import os
 
@@ -18,7 +18,7 @@ def convert_pdf_to_audio(pdf_file):
 
 # Function to convert DOCX file to text
 def convert_docx_to_audio(docx_file):
-    doc = docx.Document(docx_file)
+    doc = Document(docx_file)
     text = ""
     for paragraph in doc.paragraphs:
         text += paragraph.text + "\n"
